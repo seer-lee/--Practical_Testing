@@ -1,5 +1,7 @@
 package com.inflearn.unit;
 
+import com.inflearn.unit.beverage.Beverage;
+
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,6 +1,6 @@
-package com.inflearn.unit;
+package com.inflearn.unit.beverage;
 
- class Latte implements Beverage{
+ public class Latte implements Beverage{
      @Override
      public String getName() {
          return "라떼";

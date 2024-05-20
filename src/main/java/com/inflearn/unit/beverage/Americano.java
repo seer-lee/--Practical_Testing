@@ -1,6 +1,6 @@
-package com.inflearn.unit;
+package com.inflearn.unit.beverage;
 
-class Americano implements Beverage{
+public class Americano implements Beverage{
     @Override
     public String getName() {
         return "아메리카노";

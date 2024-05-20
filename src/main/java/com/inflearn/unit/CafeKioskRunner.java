@@ -1,5 +1,8 @@
 package com.inflearn.unit;
 
+import com.inflearn.unit.beverage.Americano;
+import com.inflearn.unit.beverage.Latte;
+
 class CafeKioskRunner {
     public static void main(String[] args) {
         CafeKiosk cafeKiosk = new CafeKiosk(); // 객체 생성
