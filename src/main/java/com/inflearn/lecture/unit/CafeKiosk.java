@@ -2,12 +2,14 @@ package com.inflearn.lecture.unit;
 
 import com.inflearn.lecture.unit.beverage.Beverage;
 import com.inflearn.lecture.unit.order.Order;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-class CafeKiosk {
+@Getter
+public class CafeKiosk {
     private final List<Beverage> beverages = new ArrayList<>(); // 음료 리스트
 
     // 음료 추가
