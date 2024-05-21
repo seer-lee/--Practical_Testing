@@ -1,7 +1,7 @@
-package com.inflearn.unit;
+package com.inflearn.lecture.unit;
 
-import com.inflearn.unit.beverage.Beverage;
-import com.inflearn.unit.order.Order;
+import com.inflearn.lecture.unit.beverage.Beverage;
+import com.inflearn.lecture.unit.order.Order;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

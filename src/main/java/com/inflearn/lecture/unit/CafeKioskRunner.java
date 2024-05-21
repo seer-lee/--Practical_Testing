@@ -1,7 +1,7 @@
-package com.inflearn.unit;
+package com.inflearn.lecture.unit;
 
-import com.inflearn.unit.beverage.Americano;
-import com.inflearn.unit.beverage.Latte;
+import com.inflearn.lecture.unit.beverage.Americano;
+import com.inflearn.lecture.unit.beverage.Latte;
 
 class CafeKioskRunner {
     public static void main(String[] args) {

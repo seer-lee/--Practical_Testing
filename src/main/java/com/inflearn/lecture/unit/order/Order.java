@@ -1,6 +1,6 @@
-package com.inflearn.unit.order;
+package com.inflearn.lecture.unit.order;
 
-import com.inflearn.unit.beverage.Beverage;
+import com.inflearn.lecture.unit.beverage.Beverage;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

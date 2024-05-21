@@ -1,4 +1,4 @@
-package com.inflearn.unit.beverage;
+package com.inflearn.lecture.unit.beverage;
 
  public class Latte implements Beverage{
      @Override
