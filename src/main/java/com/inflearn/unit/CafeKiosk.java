@@ -1,7 +1,9 @@
 package com.inflearn.unit;
 
 import com.inflearn.unit.beverage.Beverage;
+import com.inflearn.unit.order.Order;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,5 +32,8 @@ class CafeKiosk {
             totalPrice += beverage.getPrice();
         }
         return totalPrice;
+    }
+    public Order createOrder() {
+        return new Order(LocalDateTime.now(), beverages);
     }
 }
