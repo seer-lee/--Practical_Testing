@@ -15,7 +15,13 @@ public class CafeKiosk {
     private static final LocalTime SHOP_CLOSE_TIME = LocalTime.of(22,0);
     private final List<Beverage> beverages = new ArrayList<>(); // 음료 리스트
 
+    public int calculateTotalPrice() {
+        return beverages.stream()
+                .mapToInt(Beverage::getPrice)
+                .sum();
+    }
     // 음료 추가
+
     public void add(Beverage beverage) {
         beverages.add(beverage);
     }
@@ -28,25 +34,17 @@ public class CafeKiosk {
             beverages.add(beverage);
         }
     }
-
     // 음료 제거
+
     public void remove(Beverage beverage) {
         beverages.remove(beverage);
     }
-
     // 음료 리스트 초기화
+
     public void clear() {
         beverages.clear();
     }
 
-    // 총 주문 가격 계산
-    public int calculateTotalPrice() {
-        int totalPrice = 0;
-        for (Beverage beverage : beverages) {
-            totalPrice += beverage.getPrice();
-        }
-        return totalPrice;
-    }
     public Order createOrder() {
         LocalDateTime currentDateTime = LocalDateTime.now();
         LocalTime currentTime = currentDateTime.toLocalTime();
@@ -55,6 +53,7 @@ public class CafeKiosk {
         }
         return new Order(LocalDateTime.now(), beverages);
     }
+
     public Order createOrder(LocalDateTime currentDateTime) {
         LocalTime currentTime = currentDateTime.toLocalTime();
         if (currentTime.isBefore(SHOP_OPEN_TIME) || currentTime.isAfter(SHOP_CLOSE_TIME)) {

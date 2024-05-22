@@ -1,6 +1,5 @@
 package com.inflearn.lecture.unit;
 
-import com.inflearn.lecture.unit.CafeKiosk;
 import com.inflearn.lecture.unit.beverage.Americano;
 import com.inflearn.lecture.unit.beverage.Latte;
 import com.inflearn.lecture.unit.order.Order;
@@ -10,7 +9,6 @@ import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 
 class CafeKioskTest {
     @Test
@@ -104,5 +102,18 @@ class CafeKioskTest {
         assertThatThrownBy(() -> cafeKiosk.createOrder(LocalDateTime.of(2023, 1, 17, 9, 59)))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("주문 시간이 아닙니다. 관리자에게 문의하세요.");
+    }
+    @Test
+    void calculateTotalPrice() {
+        CafeKiosk cafeKiosk = new CafeKiosk();
+        Americano americano = new Americano();
+        Latte latte = new Latte();
+
+        cafeKiosk.add(americano);
+        cafeKiosk.add(latte);
+
+        int totalPrice = cafeKiosk.calculateTotalPrice();
+        assertThat(totalPrice).isEqualTo(8500);
+
     }
 }
