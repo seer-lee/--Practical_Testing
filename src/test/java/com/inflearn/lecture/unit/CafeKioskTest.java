@@ -3,6 +3,7 @@ package com.inflearn.lecture.unit;
 import com.inflearn.lecture.unit.beverage.Americano;
 import com.inflearn.lecture.unit.beverage.Latte;
 import com.inflearn.lecture.unit.order.Order;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -25,7 +26,8 @@ class CafeKioskTest {
     }
 
     @Test
-    void add() {
+    @DisplayName("음료 1개를 추가하면 주문 목록에 담긴다.")
+    void 음료_하나_추가_테스트() {
         CafeKiosk cafeKiosk = new CafeKiosk();
         cafeKiosk.add(new Americano());
         assertThat(cafeKiosk.getBeverages().size()).isEqualTo(1);
@@ -104,16 +106,22 @@ class CafeKioskTest {
                 .hasMessage("주문 시간이 아닙니다. 관리자에게 문의하세요.");
     }
     @Test
+    @DisplayName("주문목록에 담긴 상품들의 총 금액을 계산할 수 있다")
     void calculateTotalPrice() {
+        // given
         CafeKiosk cafeKiosk = new CafeKiosk();
         Americano americano = new Americano();
         Latte latte = new Latte();
 
         cafeKiosk.add(americano);
         cafeKiosk.add(latte);
-
+        // when
         int totalPrice = cafeKiosk.calculateTotalPrice();
+
+        // then
         assertThat(totalPrice).isEqualTo(8500);
 
     }
+    
+
 }
