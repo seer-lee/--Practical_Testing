@@ -2,6 +2,9 @@ package com.inflearn.lecture.unit;
 
 import com.inflearn.lecture.unit.beverage.Americano;
 import com.inflearn.lecture.unit.beverage.Latte;
+import com.inflearn.lecture.unit.order.Order;
+
+import java.time.LocalDateTime;
 
 class CafeKioskRunner {
     public static void main(String[] args) {
@@ -14,6 +17,8 @@ class CafeKioskRunner {
 
         int totalPrice = cafeKiosk.calculateTotalPrice();
         System.out.println(">>> 총 주문가격 : " + totalPrice + "원");
+
+        Order order = cafeKiosk.createOrder(LocalDateTime.now());
 
     }
 }
