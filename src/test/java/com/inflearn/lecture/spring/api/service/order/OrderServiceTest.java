@@ -2,9 +2,12 @@ package com.inflearn.lecture.spring.api.service.order;
 
 import com.inflearn.lecture.spring.api.controller.order.request.OrderCreateRequest;
 import com.inflearn.lecture.spring.api.service.order.response.OrderResponse;
+import com.inflearn.lecture.spring.domain.order.OrderRepository;
+import com.inflearn.lecture.spring.domain.orderProduct.OrderProductRepository;
 import com.inflearn.lecture.spring.domain.product.Product;
 import com.inflearn.lecture.spring.domain.product.ProductRepository;
 import com.inflearn.lecture.spring.domain.product.ProductType;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +29,18 @@ class OrderServiceTest {
     private OrderService orderService;
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private OrderRepository orderRepository;
+    @Autowired
+    private OrderProductRepository orderProductRepository;
+
+    @AfterEach
+    void tearDown() {
+        orderProductRepository.deleteAllInBatch();
+        productRepository.deleteAllInBatch();
+        orderRepository.deleteAllInBatch();
+    }
 
     @DisplayName("주문번호 리스트를 받아 주문을 생성한다")
     @Test
@@ -52,6 +67,32 @@ class OrderServiceTest {
         assertThat(orderResponse.getProducts()).hasSize(2)
                 .extracting("productNumber", "price")
                 .containsExactlyInAnyOrder(tuple("001", 1000), tuple("002", 3000));
+    }
+    @DisplayName("중복되는 상품번호 번호 리스트로 주문을 생성 할 수 있다")
+    @Test
+    void createOrderWithDuplicateProductNumbers() {
+        // given
+        LocalDateTime registedDateTime = LocalDateTime.now();
+        Product product1 = createProduct(ProductType.HANDMADE, "001", 1000);
+        Product product2 = createProduct(ProductType.HANDMADE, "002", 3000);
+        Product product3 = createProduct(ProductType.HANDMADE, "002", 5000);
+        productRepository.saveAll(List.of(product1, product2, product3));
+
+        // when
+        OrderCreateRequest request = OrderCreateRequest.builder()
+                .productNumbers(List.of("001", "001"))
+                .build();
+
+        OrderResponse orderResponse = orderService.createOrder(request, registedDateTime);
+
+        // then
+        assertThat(orderResponse.getId()).isNotNull();
+        assertThat(orderResponse)
+                .extracting("registeredDateTime", "totalPrice")
+                .contains(registedDateTime, 2000);
+        assertThat(orderResponse.getProducts()).hasSize(2)
+                .extracting("productNumber", "price")
+                .containsExactlyInAnyOrder(tuple("001", 1000), tuple("001", 1000));
     }
     private Product createProduct(ProductType type, String productNumber, int price) {
         return Product.builder()
