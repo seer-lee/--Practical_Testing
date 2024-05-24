@@ -25,6 +25,7 @@ import static com.inflearn.lecture.spring.domain.product.ProductSellingStatus.SE
 import static com.inflearn.lecture.spring.domain.product.ProductType.*;
 import static org.assertj.core.api.Assertions.*;
 
+@Transactional
 @SpringBootTest
 @ActiveProfiles("test")
 class OrderServiceTest {
