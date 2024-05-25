@@ -1,6 +1,7 @@
 package com.inflearn.lecture.spring.api.controller.order;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.inflearn.lecture.spring.ControllerTestSupport;
 import com.inflearn.lecture.spring.api.controller.order.request.OrderCreateRequest;
 import com.inflearn.lecture.spring.api.service.order.OrderService;
 import org.junit.jupiter.api.DisplayName;
@@ -19,17 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(controllers = OrderController.class)
-class OrderControllerTest {
-
-    @Autowired
-    private MockMvc mockMvc;
-
-    @Autowired
-    private ObjectMapper objectMapper;
-
-    @MockBean
-    private OrderService orderService;
+class OrderControllerTest extends ControllerTestSupport {
 
     @DisplayName("신규 주문을 등록한다.")
     @Test

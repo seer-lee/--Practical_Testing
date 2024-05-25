@@ -1,6 +1,7 @@
 package com.inflearn.lecture.spring.api.controller.product;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.inflearn.lecture.spring.ControllerTestSupport;
 import com.inflearn.lecture.spring.api.controller.product.dto.request.ProductCreateRequest;
 import com.inflearn.lecture.spring.api.service.product.ProductService;
 import org.junit.jupiter.api.DisplayName;
@@ -19,15 +20,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(controllers = ProductController.class)
-class ProductControllerTest {
-    @Autowired
-    private MockMvc mockMvc;
+class ProductControllerTest extends ControllerTestSupport {
 
-    @Autowired
-    private ObjectMapper objectMapper;
-
-    @MockBean
-    private ProductService productService;
 
     @DisplayName("신규 상품을 등록한다.")
     @Test

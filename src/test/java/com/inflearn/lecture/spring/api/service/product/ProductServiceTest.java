@@ -1,5 +1,6 @@
 package com.inflearn.lecture.spring.api.service.product;
 
+import com.inflearn.lecture.spring.IntegrationTestSupport;
 import com.inflearn.lecture.spring.api.controller.product.dto.request.ProductCreateServiceRequest;
 import com.inflearn.lecture.spring.api.service.product.response.ProductResponse;
 import com.inflearn.lecture.spring.domain.product.Product;
@@ -10,8 +11,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 
@@ -20,9 +19,7 @@ import static com.inflearn.lecture.spring.domain.product.ProductType.HANDMADE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.groups.Tuple.tuple;
 
-@ActiveProfiles("test")
-@SpringBootTest
-class ProductServiceTest {
+class ProductServiceTest extends IntegrationTestSupport {
     @Autowired
     private ProductService productService;
     @Autowired

@@ -1,7 +1,9 @@
 package com.inflearn.lecture.spring.domain.stock;
 
+import com.inflearn.lecture.spring.IntegrationTestSupport;
 import com.inflearn.lecture.spring.domain.product.Product;
 import com.inflearn.lecture.spring.domain.product.ProductType;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +16,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.groups.Tuple.tuple;
 import static org.junit.jupiter.api.Assertions.*;
 
-@DataJpaTest
-class StockRepositoryTest {
+@Transactional
+class StockRepositoryTest extends IntegrationTestSupport {
     @Autowired
     private StockRepository stockRepository;
     @DisplayName("상품 번호 리스트로 재고를 조회한다")

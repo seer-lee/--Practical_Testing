@@ -1,5 +1,6 @@
 package com.inflearn.lecture.spring.api.service.order;
 
+import com.inflearn.lecture.spring.IntegrationTestSupport;
 import com.inflearn.lecture.spring.api.controller.order.request.OrderCreateRequest;
 import com.inflearn.lecture.spring.api.service.order.request.OrderCreateServiceRequest;
 import com.inflearn.lecture.spring.api.service.order.response.OrderResponse;
@@ -26,9 +27,8 @@ import static com.inflearn.lecture.spring.domain.product.ProductSellingStatus.SE
 import static com.inflearn.lecture.spring.domain.product.ProductType.*;
 import static org.assertj.core.api.Assertions.*;
 
-@ActiveProfiles("test")
-@SpringBootTest
-class OrderServiceTest {
+
+class OrderServiceTest extends IntegrationTestSupport {
 
     @Autowired
     private ProductRepository productRepository;

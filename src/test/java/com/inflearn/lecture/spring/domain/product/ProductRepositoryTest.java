@@ -1,5 +1,6 @@
 package com.inflearn.lecture.spring.domain.product;
 
+import com.inflearn.lecture.spring.IntegrationTestSupport;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +14,7 @@ import static com.inflearn.lecture.spring.domain.product.ProductType.HANDMADE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.groups.Tuple.tuple;
 
-@ActiveProfiles("test")
-@DataJpaTest
-class ProductRepositoryTest {
+class ProductRepositoryTest extends IntegrationTestSupport {
     @Autowired
     private ProductRepository productRepository;
 
