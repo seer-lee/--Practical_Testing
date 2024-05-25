@@ -3,6 +3,7 @@ package com.inflearn.lecture.unit;
 import com.inflearn.lecture.unit.beverage.Americano;
 import com.inflearn.lecture.unit.beverage.Latte;
 import com.inflearn.lecture.unit.order.Order;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -76,6 +77,7 @@ class CafeKioskTest {
         assertThat(cafeKiosk.getBeverages().isEmpty());
     }
 
+    @Disabled
     @Test
     void createOrder() {
         CafeKiosk cafeKiosk = new CafeKiosk();

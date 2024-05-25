@@ -93,8 +93,6 @@ class ProductServiceTest {
                 .build();
         // when
         ProductResponse productResponse = productService.createProduct(request);
-
-
         // then
         assertThat(productResponse)
                 .extracting("productNumber",
