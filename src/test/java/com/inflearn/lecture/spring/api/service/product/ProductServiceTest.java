@@ -1,6 +1,7 @@
 package com.inflearn.lecture.spring.api.service.product;
 
 import com.inflearn.lecture.spring.api.controller.product.dto.request.ProductCreateRequest;
+import com.inflearn.lecture.spring.api.controller.product.dto.request.ProductCreateServiceRequest;
 import com.inflearn.lecture.spring.api.service.product.response.ProductResponse;
 import com.inflearn.lecture.spring.domain.product.Product;
 import com.inflearn.lecture.spring.domain.product.ProductRepository;
@@ -15,11 +16,10 @@ import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 
-import static com.inflearn.lecture.spring.domain.product.ProductSellingStatus.*;
+import static com.inflearn.lecture.spring.domain.product.ProductSellingStatus.SELLING;
 import static com.inflearn.lecture.spring.domain.product.ProductType.HANDMADE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.groups.Tuple.tuple;
-import static org.junit.jupiter.api.Assertions.*;
 
 @ActiveProfiles("test")
 @SpringBootTest
@@ -46,8 +46,11 @@ class ProductServiceTest {
                 .name("카푸치노")
                 .price(5000)
                 .build();
+
         // when
-        ProductResponse productResponse = productService.createProduct(request);
+        ProductCreateServiceRequest serviceRequest = request.toServiceRequest();
+        ProductResponse productResponse = productService.createProduct(serviceRequest);
+        // when
 
 
         // then
@@ -93,7 +96,8 @@ class ProductServiceTest {
                 .price(5000)
                 .build();
         // when
-        ProductResponse productResponse = productService.createProduct(request);
+        ProductCreateServiceRequest serviceRequest = request.toServiceRequest();
+        ProductResponse productResponse = productService.createProduct(serviceRequest);
 
 
         // then

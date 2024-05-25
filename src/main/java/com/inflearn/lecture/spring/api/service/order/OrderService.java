@@ -1,6 +1,7 @@
 package com.inflearn.lecture.spring.api.service.order;
 
 import com.inflearn.lecture.spring.api.controller.order.request.OrderCreateRequest;
+import com.inflearn.lecture.spring.api.service.order.request.OrderCreateServiceRequest;
 import com.inflearn.lecture.spring.api.service.order.response.OrderResponse;
 import com.inflearn.lecture.spring.domain.order.Order;
 import com.inflearn.lecture.spring.domain.order.OrderRepository;
@@ -30,15 +31,15 @@ public class OrderService {
      * optimistic lock / pessimistic lock /
      * .. 데이터에 대한 락을 잡고 순차적으로 처리한다.
      */
-    public OrderResponse createOrder(OrderCreateRequest request, LocalDateTime registedDateTime) {
+    public OrderResponse createOrder(OrderCreateServiceRequest request, LocalDateTime registeredDateTime) {
         List<String> productNumbers = request.getProductNumbers();
         List<Product> products = findProductsBy(productNumbers);
 
         deductStockQuantities(products);
 
-        Order order = Order.create(products, registedDateTime);
-        Order saveOrder = orderRepository.save(order);
-        return OrderResponse.of(saveOrder);
+        Order order = Order.create(products, registeredDateTime);
+        Order savedOrder = orderRepository.save(order);
+        return OrderResponse.of(savedOrder);
     }
 
     private List<Product> findProductsBy(List<String> productNumbers) {

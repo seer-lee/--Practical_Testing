@@ -1,6 +1,7 @@
 package com.inflearn.lecture.spring.api.service.product;
 
 import com.inflearn.lecture.spring.api.controller.product.dto.request.ProductCreateRequest;
+import com.inflearn.lecture.spring.api.controller.product.dto.request.ProductCreateServiceRequest;
 import com.inflearn.lecture.spring.api.service.product.response.ProductResponse;
 import com.inflearn.lecture.spring.domain.product.Product;
 import com.inflearn.lecture.spring.domain.product.ProductRepository;
@@ -21,19 +22,13 @@ public class ProductService {
     // 동시성 이슈
     // uuid
     @Transactional
-    public ProductResponse createProduct(ProductCreateRequest request) {
+    public ProductResponse createProduct(ProductCreateServiceRequest request) {
         String nextProductNumber = createNextProductNumber();
+
         Product product = request.toEntity(nextProductNumber);
         Product savedProduct = productRepository.save(product);
 
-        return ProductResponse.builder()
-                .id(savedProduct.getId())
-                .productNumber(savedProduct.getProductNumber())
-                .type(savedProduct.getType())
-                .sellingStatus(savedProduct.getSellingStatus())
-                .name(savedProduct.getName())
-                .price(savedProduct.getPrice())
-                .build();
+        return ProductResponse.of(savedProduct);
     }
 
 
