@@ -21,6 +21,10 @@ public class MailService {
                     .subject(subject)
                     .content(content)
                     .build());
+            mailSendClient.a();
+            mailSendClient.b();
+            mailSendClient.c();
+            mailSendClient.d();
             return true;
         }
         return false;
