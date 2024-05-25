@@ -5,6 +5,7 @@ import com.inflearn.lecture.spring.domain.orderProduct.OrderProduct;
 import com.inflearn.lecture.spring.domain.product.Product;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -27,22 +28,27 @@ public class Order extends BaseEntity {
 
     private int totalPrice;
 
-    private LocalDateTime registedDateTime;
+    private LocalDateTime registeredDateTime;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderProduct> orderProducts = new ArrayList<>();
 
-    public Order(List<Product> products, LocalDateTime registedDateTime) {
-        this.orderStatus = OrderStatus.INIT;
+    @Builder
+    private Order(List<Product> products, OrderStatus orderStatus, LocalDateTime registeredDateTime) {
+        this.orderStatus = orderStatus;
         this.totalPrice = calculateTotalPrice(products);
-        this.registedDateTime = registedDateTime;
+        this.registeredDateTime = registeredDateTime;
         this.orderProducts = products.stream()
                 .map(product -> new OrderProduct(this, product))
                 .collect(Collectors.toList());
     }
 
     public static Order create(List<Product> products, LocalDateTime registedDateTime) {
-        return new Order(products, registedDateTime);
+        return Order.builder()
+                .orderStatus(OrderStatus.INIT)
+                .products(products)
+                .registeredDateTime(registedDateTime)
+                .build();
     }
     private int calculateTotalPrice(List<Product> product) {
         return product.stream()

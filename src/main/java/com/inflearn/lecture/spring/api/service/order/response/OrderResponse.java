@@ -33,7 +33,7 @@ public class OrderResponse {
         return OrderResponse.builder()
                 .id(order.getId())
                 .totalPrice(order.getTotalPrice())
-                .registeredDateTime(order.getRegistedDateTime())
+                .registeredDateTime(order.getRegisteredDateTime())
                 .products(order.getOrderProducts().stream()
                         .map(orderProduct -> ProductResponse.of(orderProduct.getProduct()))
                         .collect(Collectors.toList())

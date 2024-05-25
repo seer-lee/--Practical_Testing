@@ -1,7 +1,6 @@
 package com.inflearn.lecture.spring.domain.order;
 
 import com.inflearn.lecture.spring.domain.product.Product;
-import com.inflearn.lecture.spring.domain.product.ProductType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +10,6 @@ import java.util.List;
 import static com.inflearn.lecture.spring.domain.product.ProductSellingStatus.SELLING;
 import static com.inflearn.lecture.spring.domain.product.ProductType.HANDMADE;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class OrderTest {
     @DisplayName("주문 생성시 상품 리스트에서 주문의 총 금액을 계산한다.")
@@ -66,7 +64,7 @@ class OrderTest {
         // when
         Order order = Order.create(products, registedDateTime);
         // then
-        assertThat(order.getRegistedDateTime()).isEqualTo(registedDateTime);
+        assertThat(order.getRegisteredDateTime()).isEqualTo(registedDateTime);
     }
 
 }

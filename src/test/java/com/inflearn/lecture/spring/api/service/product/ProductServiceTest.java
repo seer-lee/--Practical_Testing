@@ -1,6 +1,5 @@
 package com.inflearn.lecture.spring.api.service.product;
 
-import com.inflearn.lecture.spring.api.controller.product.dto.request.ProductCreateRequest;
 import com.inflearn.lecture.spring.api.controller.product.dto.request.ProductCreateServiceRequest;
 import com.inflearn.lecture.spring.api.service.product.response.ProductResponse;
 import com.inflearn.lecture.spring.domain.product.Product;
@@ -40,7 +39,7 @@ class ProductServiceTest {
         // given
         Product product1 = createProduct("001", HANDMADE, SELLING, "아메리카노", 4000);
         productRepository.save(product1);
-        ProductCreateRequest request = ProductCreateRequest.builder()
+        ProductCreateServiceRequest request = ProductCreateServiceRequest.builder()
                 .type(HANDMADE)
                 .sellingStatus(SELLING)
                 .name("카푸치노")
@@ -48,10 +47,7 @@ class ProductServiceTest {
                 .build();
 
         // when
-        ProductCreateServiceRequest serviceRequest = request.toServiceRequest();
-        ProductResponse productResponse = productService.createProduct(serviceRequest);
-        // when
-
+        ProductResponse productResponse = productService.createProduct(request);
 
         // then
         assertThat(productResponse)
@@ -89,15 +85,14 @@ class ProductServiceTest {
     @Test
     void createProductWhenProductIsEmpty() {
         // given
-        ProductCreateRequest request = ProductCreateRequest.builder()
+        ProductCreateServiceRequest request = ProductCreateServiceRequest.builder()
                 .type(HANDMADE)
                 .sellingStatus(SELLING)
                 .name("카푸치노")
                 .price(5000)
                 .build();
         // when
-        ProductCreateServiceRequest serviceRequest = request.toServiceRequest();
-        ProductResponse productResponse = productService.createProduct(serviceRequest);
+        ProductResponse productResponse = productService.createProduct(request);
 
 
         // then
