@@ -18,9 +18,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @Transactional
 class StockRepositoryTest extends IntegrationTestSupport {
+
     @Autowired
     private StockRepository stockRepository;
-    @DisplayName("상품 번호 리스트로 재고를 조회한다")
+
+    @DisplayName("상품번호 리스트로 재고를 조회한다.")
     @Test
     void findAllByProductNumberIn() {
         // given

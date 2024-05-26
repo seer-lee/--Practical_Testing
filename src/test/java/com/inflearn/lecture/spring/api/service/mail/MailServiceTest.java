@@ -10,6 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -17,8 +18,10 @@ import static org.mockito.BDDMockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class MailServiceTest {
+
     @Mock
     private MailSendClient mailSendClient;
+
     @Mock
     private MailSendHistoryRepository mailSendHistoryRepository;
 
@@ -29,24 +32,21 @@ class MailServiceTest {
     @Test
     void sendMail() {
         // given
-//        when(mailSendClient.sendEmail(anyString(), anyString(), anyString(), anyString()))
-//                .thenReturn(true);
-//
-//        doReturn(true).
-//                when(mailSendClient)
-//                .sendEmail(
-//                        anyString(),
-//                        anyString(),
-//                        anyString(),
-//                        anyString());
+//        Mockito.when(mailSendClient.sendEmail(anyString(), anyString(), anyString(), anyString()))
+//            .thenReturn(true);
         given(mailSendClient.sendEmail(anyString(), anyString(), anyString(), anyString()))
                 .willReturn(true);
 
+//        doReturn(true)
+//            .when(mailSendClient)
+//            .sendEmail(anyString(), anyString(), anyString(), anyString());
+
         // when
         boolean result = mailService.sendMail("", "", "", "");
+
         // then
-        assertTrue(result);
-        verify(mailSendHistoryRepository, times(1))
-                .save(any(MailSendHistory.class));
+        assertThat(result).isTrue();
+        verify(mailSendHistoryRepository, times(1)).save(any(MailSendHistory.class));
     }
+
 }

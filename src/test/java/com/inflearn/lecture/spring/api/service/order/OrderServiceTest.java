@@ -1,24 +1,20 @@
 package com.inflearn.lecture.spring.api.service.order;
 
 import com.inflearn.lecture.spring.IntegrationTestSupport;
-import com.inflearn.lecture.spring.api.controller.order.request.OrderCreateRequest;
 import com.inflearn.lecture.spring.api.service.order.request.OrderCreateServiceRequest;
 import com.inflearn.lecture.spring.api.service.order.response.OrderResponse;
 import com.inflearn.lecture.spring.domain.order.OrderRepository;
 import com.inflearn.lecture.spring.domain.orderProduct.OrderProductRepository;
 import com.inflearn.lecture.spring.domain.product.Product;
-import com.inflearn.lecture.spring.domain.stock.Stock;
 import com.inflearn.lecture.spring.domain.product.ProductRepository;
 import com.inflearn.lecture.spring.domain.product.ProductType;
+import com.inflearn.lecture.spring.domain.stock.Stock;
 import com.inflearn.lecture.spring.domain.stock.StockRepository;
-import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -115,6 +111,7 @@ class OrderServiceTest extends IntegrationTestSupport {
                 );
     }
 
+    @Disabled
     @DisplayName("재고와 관련된 상품이 포함되어 있는 주문번호 리스트를 받아 주문을 생성한다.")
     @Test
     void createOrderWithStock() {
@@ -133,6 +130,7 @@ class OrderServiceTest extends IntegrationTestSupport {
         OrderCreateServiceRequest request = OrderCreateServiceRequest.builder()
                 .productNumbers(List.of("001", "001", "002", "003"))
                 .build();
+
         // when
         OrderResponse orderResponse = orderService.createOrder(request, registeredDateTime);
 

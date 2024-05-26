@@ -19,7 +19,7 @@ public class OrderStatisticsService {
         List<Order> orders = orderRepository.findOrdersBy(
                 orderDate.atStartOfDay(),
                 orderDate.plusDays(1).atStartOfDay(),
-                OrderStatus.PAYMENT_COMPLETE
+                OrderStatus.PAYMENT_COMPLETED
         );
 
         int totalAmount = orders.stream()

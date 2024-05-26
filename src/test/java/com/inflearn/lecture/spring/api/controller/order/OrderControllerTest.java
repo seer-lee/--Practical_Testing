@@ -1,20 +1,13 @@
 package com.inflearn.lecture.spring.api.controller.order;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.inflearn.lecture.spring.ControllerTestSupport;
 import com.inflearn.lecture.spring.api.controller.order.request.OrderCreateRequest;
-import com.inflearn.lecture.spring.api.service.order.OrderService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -41,6 +34,7 @@ class OrderControllerTest extends ControllerTestSupport {
                 .andExpect(jsonPath("$.code").value("200"))
                 .andExpect(jsonPath("$.status").value("OK"))
                 .andExpect(jsonPath("$.message").value("OK"));
+        ;
     }
 
     @DisplayName("신규 주문을 등록할 때 상품번호는 1개 이상이어야 한다.")
@@ -62,6 +56,8 @@ class OrderControllerTest extends ControllerTestSupport {
                 .andExpect(jsonPath("$.code").value("400"))
                 .andExpect(jsonPath("$.status").value("BAD_REQUEST"))
                 .andExpect(jsonPath("$.message").value("상품 번호 리스트는 필수입니다."))
-                .andExpect(jsonPath("$.data").isEmpty());
+                .andExpect(jsonPath("$.data").isEmpty())
+        ;
     }
+
 }

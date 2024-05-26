@@ -1,7 +1,6 @@
 package com.inflearn.lecture.spring.api.service.order;
 
 import com.inflearn.lecture.spring.IntegrationTestSupport;
-import com.inflearn.lecture.spring.client.mail.MailSendClient;
 import com.inflearn.lecture.spring.domain.history.mail.MailSendHistory;
 import com.inflearn.lecture.spring.domain.history.mail.MailSendHistoryRepository;
 import com.inflearn.lecture.spring.domain.order.Order;
@@ -15,7 +14,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -28,17 +26,21 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 class OrderStatisticsServiceTest extends IntegrationTestSupport {
+
     @Autowired
     private OrderStatisticsService orderStatisticsService;
+
+    @Autowired
+    private OrderProductRepository orderProductRepository;
+
     @Autowired
     private OrderRepository orderRepository;
+
     @Autowired
     private ProductRepository productRepository;
 
     @Autowired
     private MailSendHistoryRepository mailSendHistoryRepository;
-    @Autowired
-    private OrderProductRepository orderProductRepository;
 
     @AfterEach
     void tearDown() {
@@ -47,6 +49,7 @@ class OrderStatisticsServiceTest extends IntegrationTestSupport {
         productRepository.deleteAllInBatch();
         mailSendHistoryRepository.deleteAllInBatch();
     }
+
     @DisplayName("결제완료 주문들을 조회하여 매출 통계 메일을 전송한다.")
     @Test
     void sendOrderStatisticsMail() {
@@ -63,17 +66,13 @@ class OrderStatisticsServiceTest extends IntegrationTestSupport {
         Order order2 = createPaymentCompletedOrder(now, products);
         Order order3 = createPaymentCompletedOrder(LocalDateTime.of(2023, 3, 5, 23, 59, 59), products);
         Order order4 = createPaymentCompletedOrder(LocalDateTime.of(2023, 3, 6, 0, 0), products);
-        // Stubbing
-        when(mailSendClient.sendEmail(any(String.class),
-                any(String.class),
-                any(String.class),
-                any(String.class)))
-                .thenReturn(true);
 
+        // stubbing
+        when(mailSendClient.sendEmail(any(String.class), any(String.class), any(String.class), any(String.class)))
+                .thenReturn(true);
 
         // when
         boolean result = orderStatisticsService.sendOrderStatisticsMail(LocalDate.of(2023, 3, 5), "test@test.com");
-
 
         // then
         assertThat(result).isTrue();
@@ -83,6 +82,16 @@ class OrderStatisticsServiceTest extends IntegrationTestSupport {
                 .extracting("content")
                 .contains("총 매출 합계는 12000원입니다.");
     }
+
+    private Order createPaymentCompletedOrder(LocalDateTime now, List<Product> products) {
+        Order order = Order.builder()
+                .products(products)
+                .orderStatus(OrderStatus.PAYMENT_COMPLETED)
+                .registeredDateTime(now)
+                .build();
+        return orderRepository.save(order);
+    }
+
     private Product createProduct(ProductType type, String productNumber, int price) {
         return Product.builder()
                 .type(type)
@@ -91,14 +100,6 @@ class OrderStatisticsServiceTest extends IntegrationTestSupport {
                 .sellingStatus(SELLING)
                 .name("메뉴 이름")
                 .build();
-    }
-    private Order createPaymentCompletedOrder(LocalDateTime now, List<Product> products) {
-        Order order = Order.builder()
-                .products(products)
-                .orderStatus(OrderStatus.PAYMENT_COMPLETE)
-                .registeredDateTime(now)
-                .build();
-        return orderRepository.save(order);
     }
 
 }
